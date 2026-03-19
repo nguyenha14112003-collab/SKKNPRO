@@ -2063,7 +2063,7 @@ ${finalResult.content}`;
   const exportMarkdown = async () => {
     setIsLoading(true);
     try {
-      const sections = { ...data.sections };
+      const { sections } = await normalizeDraftForExport(true);
       const referencesMarkdown = buildReferencesSectionMarkdown(sections);
       const allContent = [
         ...SECTION_ORDER.map((sectionName) => sections[sectionName] || ''),
@@ -2077,7 +2077,7 @@ ${finalResult.content}`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (error: any) {
-      Swal.fire('Lỗi', error.message || 'Không thể xuất Markdown.', 'error');
+      Swal.fire('Lỗi', error.message || 'Không thể chuẩn hóa và xuất Markdown.', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -2087,7 +2087,7 @@ ${finalResult.content}`;
   const exportToDocx = async () => {
     setIsLoading(true);
     try {
-      const exportSections = { ...data.sections };
+      const { sections: exportSections } = await normalizeDraftForExport(true);
       const referencesMarkdown = buildReferencesSectionMarkdown(exportSections);
       const referencesBodyHtml = renderMarkdown(
         referencesMarkdown.replace(/^##\s*IV\.\s*Tài liệu tham khảo\s*$/im, '').trim(),
@@ -2233,7 +2233,7 @@ ${bodyHtml}
       a.click();
       URL.revokeObjectURL(url);
     } catch (error: any) {
-      Swal.fire('Lỗi', error.message || 'Không thể xuất file Word.', 'error');
+      Swal.fire('Lỗi', error.message || 'Không thể chuẩn hóa và xuất file Word.', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -2281,7 +2281,7 @@ ${bodyHtml}
                 <p className="font-semibold">Chuẩn hóa tổng độ dài trước khi xuất</p>
                 <p>Tổng hiện tại khoảng {draftLengthMetrics.totalActualWords} từ (~{draftLengthMetrics.totalActualPages} trang), mục tiêu khoảng {draftLengthMetrics.totalTargetWords} từ (~{draftLengthMetrics.totalTargetPages} trang).</p>
                 <p>{draftDeltaLabel}</p>
-                <p className="text-xs opacity-80">Nếu cần, hãy bấm "Chuẩn hóa toàn bài" trước. Hai nút tải file bên dưới sẽ xuất đúng bản hiện tại và không gọi AI nữa.</p>
+                <p className="text-xs opacity-80">Khi bấm xuất file, app sẽ tự cân lại một vài mục lớn nếu tổng độ dài còn lệch nhiều.</p>
               </div>
             )}
             <div className="flex flex-wrap gap-3">
