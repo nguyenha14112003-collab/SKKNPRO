@@ -2324,9 +2324,9 @@ ${bodyHtml}
         <div className="p-5 border-b border-slate-200 dark:border-slate-800">
           <div className="flex items-center gap-2">
             <Sparkles size={22} className="text-primary" />
-            <h1 className="font-bold text-lg text-primary">Viethung</h1>
+            <h1 className="font-bold text-lg text-primary">Thuý Lan</h1>
           </div>
-          <p className="text-[11px] text-slate-400 mt-0.5">Trợ lí viết SKKN thông minh • build {APP_BUILD_TAG}</p>
+          <p className="text-[11px] text-slate-400 mt-0.5">Hỗ trợ viết SKKN • build {APP_BUILD_TAG}</p>
         </div>
 
         {/* Step Navigation */}
